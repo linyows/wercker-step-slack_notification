@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export DEPLOY="true"
+#export DEPLOY="true"
+export WERCKER_RESULT="passed"
+#export WERCKER_RESULT="failed"
 
 export WERCKER_SLACK_NOTIFICATION_CHANNEL="C03QYQ3H7"
 #export WERCKER_SLACK_NOTIFICATION_TOKEN=""
