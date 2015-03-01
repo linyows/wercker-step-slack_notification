@@ -4,6 +4,7 @@ POST_MESSAGE_API_ENDPOINT="https://slack.com/api/chat.postMessage"
 USERNAME="username=wercker"
 AVATAR="icon_url=https://raw.githubusercontent.com/linyows/wercker-step-slack_notification/master/wercker-icon.png"
 CHANNEL="channel=general"
+ENDPOINT=""
 
 if [ ! -n "$WERCKER_SLACK_NOTIFICATION_TOKEN" ]; then
   error 'Please specify token property'
@@ -96,7 +97,16 @@ if [ "$WERCKER_SLACK_NOTIFICATION_ON" = "failed" ]; then
   fi
 fi
 
+OUTPUT="$WERCKER_STEP_TEMP/slack_notification_result.txt"
 ATTACHEMENTS="attachments=[{\"color\": \"$COLOR\", \"title\": \"$WERCKER_SLACK_NOTIFICATION_TITLE\", \"title_link\": \"$WERCKER_SLACK_NOTIFICATION_TITLE_LINK\", \"text\": \"$WERCKER_SLACK_NOTIFICATION_TEXT\", \"fallback\": \"$WERCKER_SLACK_NOTIFICATION_TEXT\"}]"
+
+CMD="curl -s \
+    -F $CHANNEL \
+    -F $AVATAR \
+    -F \"text=\" \
+    -F $USERNAME \
+    -F \"$ATTACHEMENTS\" \
+    \"$ENDPOINT\" --output $OUTPUT -w \"%{http_code}\""
 
 RESULT=`curl -s \
     -F $CHANNEL \
@@ -104,4 +114,14 @@ RESULT=`curl -s \
     -F "text=" \
     -F $USERNAME \
     -F "$ATTACHEMENTS" \
-    "$ENDPOINT"`
+    "$ENDPOINT" --output $OUTPUT -w "%{http_code}"`
+
+if [ "$RESULT" != "200" ]; then
+    error 'not 200 http-status'
+    exit 1
+fi
+
+if grep -Fqx '"ok": false' $OUTPUT; then
+    error 'ok is false'
+    exit 1
+fi
