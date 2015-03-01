@@ -3,6 +3,9 @@ Slack-Notification Step
 
 Posts a message to an Slack channel.
 
+[![wercker status](https://img.shields.io/wercker/ci/54f036adb05d633123007959.svg?style=flat-square)][wercker]
+[wercker]: https://app.wercker.com/#applications/54f036adb05d633123007959
+
 Options
 -------
 
