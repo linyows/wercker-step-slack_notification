@@ -1,37 +1,7 @@
-name: slack_notification
-version: 0.0.1
-description: Post a message to an Slack channel
-keywords:
-  - notification
-  - slack
-properties:
-  token:
-    type: string
-    required: true
-  subdomain:
-    type: string
-  channel:
-    type: string
-  endpoint:
-    type: string
-  username:
-    type: string
-  title:
-    type: string
-  icon_emoji:
-    type: string
-  icon_url:
-    type: string
-  title_link:
-    type: string
-  failed-text:
-    type: string
-  failed-color:
-    type: string
-  passed-text:
-    type: string
-  passed-color:
-    type: string
-  on:
-    type: string
-    default: always
+box: wercker/default
+build:
+  steps:
+    -  script:
+        name: test
+        code: |-
+          /bin/bash ./run_test.sh
