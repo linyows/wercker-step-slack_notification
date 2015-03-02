@@ -98,15 +98,14 @@ if [ "$WERCKER_SLACK_NOTIFICATION_ON" = "failed" ]; then
 fi
 
 OUTPUT="$WERCKER_STEP_TEMP/slack_notification_result.txt"
-ATTACHEMENTS="attachments=[{\"color\": \"$COLOR\", \"title\": \"$WERCKER_SLACK_NOTIFICATION_TITLE\", \"title_link\": \"$WERCKER_SLACK_NOTIFICATION_TITLE_LINK\", \"text\": \"$WERCKER_SLACK_NOTIFICATION_TEXT\", \"fallback\": \"$WERCKER_SLACK_NOTIFICATION_TEXT\"}]"
+ATTACHEMENTS="attachments=[{\"color\":\"$COLOR\",\"title\":\"$WERCKER_SLACK_NOTIFICATION_TITLE\",\"title_link\":\"$WERCKER_SLACK_NOTIFICATION_TITLE_LINK\",\"text\":\"$WERCKER_SLACK_NOTIFICATION_TEXT\",\"fallback\":\"$WERCKER_SLACK_NOTIFICATION_TEXT\"}]"
 
-CMD="curl -s \
-    -F $CHANNEL \
-    -F $AVATAR \
-    -F \"text=\" \
-    -F $USERNAME \
-    -F \"$ATTACHEMENTS\" \
-    \"$ENDPOINT\" --output $OUTPUT -w \"%{http_code}\""
+if [ -n "$DEBUG" ]; then
+    echo $CHANNEL
+    echo $AVATAR
+    echo $USERNAME
+    echo $ATTACHEMENTS
+fi
 
 RESULT=`curl -s \
     -F $CHANNEL \
@@ -117,11 +116,13 @@ RESULT=`curl -s \
     "$ENDPOINT" --output $OUTPUT -w "%{http_code}"`
 
 if [ "$RESULT" != "200" ]; then
-    error 'not 200 http-status'
+    error "http-status is $RESULT"
+    test -f $OUTPUT && cat $OUTPUT
     exit 1
 fi
 
-if grep -Fqx '"ok": false' $OUTPUT; then
+if cat $OUTPUT | grep '"ok":false' > /dev/null; then
     error 'ok is false'
+    test -f $OUTPUT && cat $OUTPUT
     exit 1
 fi

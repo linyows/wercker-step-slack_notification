@@ -4,7 +4,7 @@ function error() {
     echo $1
 }
 function info() {
-    echo -ne "\\033[1;34m$1\\033[0;39m"
+    echo -e "\\033[1;34m$1\\033[0;39m"
 }
 function success() {
     echo -e "\\033[1;32m ok\\033[0;39m"
@@ -20,7 +20,7 @@ function unset_variables() {
     unset COLOR
 }
 
-export WERCKER_SLACK_NOTIFICATION_CHANNEL="C03RQJ7HT"
+export WERCKER_SLACK_NOTIFICATION_CHANNEL=$SLACK_CHANNEL
 export WERCKER_SLACK_NOTIFICATION_TOKEN=$SLACK_TOKEN
 export WERCKER_STEP_TEMP="/tmp"
 
@@ -37,7 +37,7 @@ unset WERCKER_SLACK_NOTIFICATION_PASSED_TEXT
 
 ERR=0
 
-info 'A build successful:'
+info 'Notify to slack when a build successful'
 export WERCKER_RESULT="passed"
 source ./run.sh
 
@@ -50,7 +50,7 @@ fi
 unset_variables
 sleep 1
 
-info 'A build failed:'
+info 'Notify to slack when a build failed'
 export WERCKER_RESULT="failed"
 source ./run.sh
 
@@ -65,7 +65,7 @@ sleep 1
 
 export DEPLOY="true"
 
-info 'A deploy successful:'
+info 'Notify to slack when a deploy successful'
 export WERCKER_RESULT="passed"
 source ./run.sh
 
@@ -78,7 +78,7 @@ fi
 sleep 1
 unset_variables
 
-info 'A deploy failed:'
+info 'Notify to slack when deploy failed'
 WERCKER_RESULT="failed"
 source ./run.sh
 
@@ -88,6 +88,19 @@ else
     failure
     ERR=1
 fi
+# sleep 1
+# unset_variables
+# 
+# info 'Exit 1 when invalid token'
+# export WERCKER_SLACK_NOTIFICATION_TOKEN="foo"
+# source ./run.sh
+# 
+# if [ $? -eq 1 ]; then
+#     success
+# else
+#     failure
+#     ERR=1
+# fi
 
 if [ $ERR -eq 1 ]; then
     exit 1
