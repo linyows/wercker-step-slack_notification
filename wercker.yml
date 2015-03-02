@@ -2,10 +2,18 @@ box: wercker/default
 build:
   steps:
     -  script:
-        name: test
-        code: |-
-          /bin/bash ./run_test.sh
+        name: run test script
+        code: /bin/bash ./run_test.sh
   after-steps:
     - linyows/slack_notification:
         token: $SLACK_TOKEN
-        channel: C038M2LE1
+        channel: C02FCHEQH
+deploy:
+  steps:
+    -  script:
+        name: hi
+        code: whoami
+  after-steps:
+    - linyows/slack_notification:
+        token: $SLACK_TOKEN
+        channel: C02FCHEQH
