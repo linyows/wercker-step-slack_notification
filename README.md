@@ -9,7 +9,7 @@ Posts a message to an Slack channel.
 Preview
 -------
 
-<img width="265" src="https://raw.githubusercontent.com/linyows/wercker-step-slack_notification/master/preview.png">
+<img width="300" src="https://raw.githubusercontent.com/linyows/wercker-step-slack_notification/master/preview.png">
 
 Options
 -------
