@@ -27,11 +27,13 @@ export WERCKER_STEP_TEMP="/tmp"
 export WERCKER_BUILD_URL="https://app.wercker.com/#build/54f036b2b05d633123007967"
 export WERCKER_DEPLOY_URL="https://app.wercker.com/#build/54f036b2b05d633123007967"
 export WERCKER_GIT_BRANCH="master"
+export WERCKER_GIT_OWNER="linyows"
+export WERCKER_GIT_REPOSITORY="wercker-step-slack_notification"
 export WERCKER_APPLICATION_OWNER_NAME="linyows"
 export WERCKER_APPLICATION_NAME="wercker-step-slack_notification"
 export WERCKER_STARTED_BY="linyows"
 export WERCKER_DEPLOYTARGET_NAME="www001.foo.com"
-export WERCKER_APPLICATION_LINK="https://github.com/linyows/wercker-step-slack_notification"
+export WERCKER_APPLICATION_URL="https://github.com/linyows/wercker-step-slack_notification"
 unset WERCKER_SLACK_NOTIFICATION_FAILED_TEXT
 unset WERCKER_SLACK_NOTIFICATION_PASSED_TEXT
 
