@@ -27,12 +27,27 @@ Options
 Example
 -------
 
+### If use API:
+
 ```yaml
 build:
     after-steps:
         - linyows/slack_notification:
             token: $SLACK_TOKEN
             channel: C038M2LE1
+```
+
+channel_id: https://api.slack.com/methods/channels.list/test
+
+### If use incomming webhook:
+
+```yaml
+build:
+    after-steps:
+        - linyows/slack_notification:
+            token: $SLACK_TOKEN
+            channel: #general
+            subdomain: foo
 ```
 
 License
