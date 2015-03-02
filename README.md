@@ -6,6 +6,11 @@ Posts a message to an Slack channel.
 [![wercker status](https://img.shields.io/wercker/ci/54f036adb05d633123007959.svg?style=flat-square)][wercker]
 [wercker]: https://app.wercker.com/#applications/54f036adb05d633123007959
 
+Preview
+-------
+
+<img width="265" src="https://raw.githubusercontent.com/linyows/wercker-step-slack_notification/master/preview.png">
+
 Options
 -------
 
